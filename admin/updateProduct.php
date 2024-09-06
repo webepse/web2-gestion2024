@@ -22,6 +22,28 @@
     }
     $req->closeCursor();
 
+
+    if(isset($_GET['delete']))
+    {
+        $idV = htmlspecialchars($_GET['delete']);
+        $verif = $bdd->prepare("SELECT * FROM images WHERE id=?");
+        $verif->execute([$idV]);
+        if(!$donV = $verif->fetch())
+        {
+            $verif->closeCursor();
+            header("LOCATION:index.php");
+        }
+        $verif->closeCursor();
+
+        unlink("../images/".$donV['fichier']);
+        unlink("../images/mini_".$donV['fichier']);
+
+        $reqDel = $bdd->prepare("DELETE FROM images WHERE id=?");
+        $reqDel->execute([$idV]);
+        $reqDel->closeCursor();
+        header("LOCATION:updateProduct.php?id=".$id."&deletesuccess=".$idV."#galerie");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,6 +140,10 @@
                 {
                     echo "<div class='alert alert-success'>Vous avez bien ajouté une image au produit</div>";
                 }
+                if(isset($_GET['deletesuccess']))
+                {
+                    echo "<div class='alert alert-danger'>Vous avez bien supprimer l'image id ".$_GET['deletesuccess']."</div>";
+                }
             ?>
             <a href="addImg.php?id=<?= $id ?>" class='btn btn-success'>Ajouter une image</a>
             <table class="table table-striped">
@@ -134,7 +160,7 @@
                         echo "<tr>";
                             echo "<td>".$donI['id']."</td>";
                             echo "<td><div class='col-2'><img src='../images/".$donI['fichier']."' alt='img' class='img-fluid'></div></td>";
-                            echo "<td><a href='#' class='btn btn-danger'>Supprimer</a></td>";
+                            echo "<td><a href='updateProduct.php?id=".$id."&delete=".$donI['id']."' class='btn btn-danger'>Supprimer</a></td>";
                         echo "</tr>";
                     }
                     $images->closeCursor();
