@@ -27,7 +27,7 @@ $Reduction = ( ($NouvelleLargeur * 100)/$TailleImageChoisie[0] );
 
 //  je détermine la hauteur de la nouvelle image en appliquant le pourcentage de réduction à l'ancienne hauteur.
 
-$NouvelleHauteur = ( ($TailleImageChoisie[1] * $Reduction)/100 );
+$NouvelleHauteur = round( ($TailleImageChoisie[1] * $Reduction)/100 );
 
 
 $destination =  imagecreatetruecolor($NouvelleLargeur , $NouvelleHauteur) or die ("Erreur"); // On crée la miniature vide
@@ -53,9 +53,14 @@ imagepng($destination,$rep_nom);
 if(isset($_GET['update']))
 {
     header("LOCATION:products.php?updatesuccess=".$_GET['update']);
-}else{
+}elseif(isset($_GET['addimg']))
+{
+    header("LOCATION:updateProduct.php?id=".$_GET['addimg']."&addsuccess=ok");
+}
+else{
     header("LOCATION:products.php?add=success");
 }
+
 
 
 
