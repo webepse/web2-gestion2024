@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>Administration - Modifer un produit</title>
+    <title>Administration - Modifier un produit</title>
 </head>
 <body>
     <?php
@@ -64,7 +64,7 @@
                 }
 
             ?>
-            <input type="hidden" name="id" value="<?= $don['id'] ?>">
+            <input type="hidden" name="id" value="<?= $id ?>">
             <div class="form-group my-2">
                 <label for="nom">Nom: </label>
                 <input type="text" name="nom" id="nom" class="form-control" value="<?= $don['nom'] ?>">
@@ -107,7 +107,7 @@
                 <input type="number" step="0.1" name="prix" id="prix" class="form-control" value="<?= $don['prix'] ?>">
             </div>
             <div class="form-group my-2">
-                <input type="submit" value="Ajouter" class="btn btn-primary">
+                <input type="submit" value="Modifier" class="btn btn-warning">
             </div>
         </form> 
     </div>
