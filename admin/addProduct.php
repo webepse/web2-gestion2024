@@ -23,6 +23,30 @@
         <h2>Ajouter un produit</h2>
         <a href="products.php" class="btn btn-secondary my-3">Retour</a>
         <form action="treatmentAddProduct.php" method="POST" enctype="multipart/form-data">
+            <?php
+                if(isset($_GET['error']))
+                {
+                    echo "<div class='alert alert-danger'>Une erreur est survenue (code erreur: ".$_GET['error'].")</div>";
+                }
+                if(isset($_GET['errorimg']))
+                {
+                    switch($_GET['errorimg'])
+                    {
+                        case 1:
+                            echo "<div class='alert alert-danger'>L'extension du fichier n'est pas valide</div>";
+                            break;
+                        case 2:
+                            echo "<div class='alert alert-danger'>Le fichier est trop lourd</div>";
+                            break;
+                        case 3:
+                            echo "<div class='alert alert-danger'>Une erreur est survenue</div>";
+                            break;
+                        default:
+                            echo "<div class='alert alert-danger'>Une erreur est survenue</div>";
+                    }
+                }
+
+            ?>
             <div class="form-group my-2">
                 <label for="nom">Nom: </label>
                 <input type="text" name="nom" id="nom" class="form-control">
