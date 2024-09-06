@@ -111,8 +111,14 @@
                 <a href="products.php" class="btn btn-secondary mx-2">Retour</a>
             </div>
         </form>
-        <div class="row">
+        <div class="row" id="galerie">
             <h2>Gestion des images</h2>
+            <?php
+                if(isset($_GET['addsuccess']))
+                {
+                    echo "<div class='alert alert-success'>Vous avez bien ajouté une image au produit</div>";
+                }
+            ?>
             <a href="addImg.php?id=<?= $id ?>" class='btn btn-success'>Ajouter une image</a>
             <table class="table table-striped">
                 <tr>
