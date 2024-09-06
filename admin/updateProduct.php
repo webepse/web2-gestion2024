@@ -108,6 +108,7 @@
             </div>
             <div class="form-group my-2">
                 <input type="submit" value="Modifier" class="btn btn-warning">
+                <a href="products.php" class="btn btn-secondary mx-2">Retour</a>
             </div>
         </form> 
     </div>

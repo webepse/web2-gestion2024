@@ -5,6 +5,30 @@
         header("LOCATION:index.php");
     }
 
+    require "../connexion.php";
+
+    if(isset($_GET['delete']))
+    {
+        $id = htmlspecialchars($_GET['delete']);
+        $verif = $bdd->prepare("SELECT * FROM products WHERE id=?");
+        $verif->execute([$id]);
+        if(!$donV = $verif->fetch())
+        {
+            $verif->closeCursor();
+            header("LOCATION:index.php");
+        }
+        $verif->closeCursor();
+
+        // je peux supprimer
+        unlink("../images/".$donV['fichier']);
+        unlink("../images/mini_".$donV['fichier']);
+
+        $delete = $bdd->prepare("DELETE FROM products WHERE id=?");
+        $delete->execute([$id]);
+        $delete->closeCursor();
+        header("LOCATION:products.php?deletesuccess=".$id);
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +45,20 @@
     ?>
     <div class="container-fluid">
         <h2>Administration des produits</h2>
+        <?php
+            if(isset($_GET['add']))
+            {
+                echo "<div class='alert alert-success'>Vous avez bien ajouté un produit dans la base de données</div>";
+            }
+            if(isset($_GET['updatesuccess']))
+            {
+                echo "<div class='alert alert-warning'>Vous avez bien modifié le produit id ".$_GET['updatesuccess']."</div>"; 
+            }
+            if(isset($_GET['deletesuccess']))
+            {
+                echo "<div class='alert alert-danger'>Vous avez bien supprimé le produit id ".$_GET['deletesuccess']."</div>"; 
+            }
+        ?>
         <a href="addProduct.php" class="btn btn-success my-3">Ajouter un produit</a>
         <table class="table table-striped">
             <tr>
@@ -32,7 +70,7 @@
             </tr>
             <tr>
                 <?php
-                    require "../connexion.php";
+                  
                     $req = $bdd->query("SELECT * FROM products");
                     while($don = $req->fetch())
                     {
