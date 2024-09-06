@@ -110,7 +110,33 @@
                 <input type="submit" value="Modifier" class="btn btn-warning">
                 <a href="products.php" class="btn btn-secondary mx-2">Retour</a>
             </div>
-        </form> 
+        </form>
+        <div class="row">
+            <h2>Gestion des images</h2>
+            <a href="addImg.php?id=<?= $id ?>" class='btn btn-success'>Ajouter une image</a>
+            <table class="table table-striped">
+                <tr>
+                    <th>id</th>
+                    <th>image</th>
+                    <th>action</th>
+                </tr>
+                <?php
+                    $images = $bdd->prepare("SELECT * FROM images WHERE id_produit=?");
+                    $images->execute([$id]);
+                    while($donI = $images->fetch())
+                    {
+                        echo "<tr>";
+                            echo "<td>".$donI['id']."</td>";
+                            echo "<td><div class='col-2'><img src='../images/".$donI['fichier']."' alt='img' class='img-fluid'></div></td>";
+                            echo "<td><a href='#' class='btn btn-danger'>Supprimer</a></td>";
+                        echo "</tr>";
+                    }
+                    $images->closeCursor();
+                ?>
+            </table>
+
+
+        </div> 
     </div>
 </body>
 </html>
