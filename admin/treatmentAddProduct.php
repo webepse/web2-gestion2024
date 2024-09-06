@@ -91,7 +91,13 @@
                         ":prix" => $prix
                     ]);
                     $insert->closeCursor();
-                    header("LOCATION:products.php?add=success");
+                    // header("LOCATION:products.php?add=success");
+                    if($extension == ".png")
+                    {
+                        header("LOCATION:redimpng.php?image=".$fichiercptl);
+                    }else{
+                        header("LOCATION:redim.php?image=".$fichiercptl);
+                    }
                 }else{
                     header("LOCATION:addProduct.php?errorimg=3");
                 }
