@@ -84,17 +84,17 @@
             <tr>
                 <?php
                   
-                    $req = $bdd->query("SELECT * FROM products");
+                    $req = $bdd->query("SELECT products.id AS pid, products.nom AS pnom, products.prix AS pprix, categories.title as ctitle FROM products INNER JOIN categories ON categories.id = products.categorie");
                     while($don = $req->fetch())
                     {
                         echo "<tr>";
-                            echo "<td>".$don['id']."</td>";
-                            echo "<td>".$don['nom']."</td>";
-                            echo "<td>".$don['categorie']."</td>";
-                            echo "<td>".$don['prix']."</td>";
+                            echo "<td>".$don['pid']."</td>";
+                            echo "<td>".$don['pnom']."</td>";
+                            echo "<td>".$don['ctitle']."</td>";
+                            echo "<td>".$don['pprix']."</td>";
                             echo "<td class='text-center'>";
-                                echo "<a href='updateProduct.php?id=".$don['id']."' class='btn btn-warning mx-2'>Modifier</a>";
-                                echo "<a href='products.php?delete=".$don['id']."' class='btn btn-danger mx-2'>Supprimer</a>";
+                                echo "<a href='updateProduct.php?id=".$don['pid']."' class='btn btn-warning mx-2'>Modifier</a>";
+                                echo "<a href='products.php?delete=".$don['pid']."' class='btn btn-danger mx-2'>Supprimer</a>";
                             echo "</td>";
                         echo "</tr>";
                     }

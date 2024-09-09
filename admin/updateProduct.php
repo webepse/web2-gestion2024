@@ -95,16 +95,17 @@
                 <label for="categorie">Catégorie: </label>
                 <select name="categorie" id="categorie" class="form-control">
                     <?php
-                        $categories = ['Cat1','Cat2','Cat3'];
-                        foreach($categories as $key => $value)
+                        $categories = $bdd->query("SELECT * FROM categories");
+                        while($donC = $categories->fetch())
                         {
-                            if($value == $don['categorie'])
+                            if($donC['id'] == $don['categorie'])
                             {
-                                echo "<option value='".$value."' selected>Catégorie ".($key+1)."</option>";
+                                echo "<option value='".$donC['id']."' selected>".$donC['title']."</option>";
                             }else{
-                                echo "<option value='".$value."'>Catégorie ".($key+1)."</option>";
+                                echo "<option value='".$donC['id']."'>".$donC['title']."</option>";
                             }
                         }
+                        $categories->closeCursor();
                     ?>
 
                 </select>

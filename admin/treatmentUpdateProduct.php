@@ -38,13 +38,14 @@
         {
             $err = 2;
         }else{
-            $categories = ["Cat1","Cat2","Cat3"];
-            if(in_array($_POST['categorie'],$categories))
+            $categorie = htmlspecialchars($_POST['categorie']); 
+            $verif = $bdd->prepare("SELECT * FROM categories WHERE id=?");
+            $verif->execute([$categorie]);
+            if(!$donV = $verif->fetch())
             {
-                $categorie = htmlspecialchars($_POST['categorie']);
-            }else{
-                $err = 3;
+                $err=7;
             }
+            $verif->closeCursor();
         }
 
         if(empty($_POST['description']))

@@ -7,6 +7,7 @@
 
     if(isset($_POST['nom']))
     {
+        require "../connexion.php";
         $err = 0;
         if(empty($_POST['nom']))
         {
@@ -19,13 +20,14 @@
         {
             $err = 2;
         }else{
-            $categories = ["Cat1","Cat2","Cat3"];
-            if(in_array($_POST['categorie'],$categories))
+            $categorie = htmlspecialchars($_POST['categorie']); 
+            $verif = $bdd->prepare("SELECT * FROM categories WHERE id=?");
+            $verif->execute([$categorie]);
+            if(!$don = $verif->fetch())
             {
-                $categorie = htmlspecialchars($_POST['categorie']);
-            }else{
-                $err = 3;
+                $err=7;
             }
+            $verif->closeCursor();
         }
 
         if(empty($_POST['description']))
@@ -80,7 +82,6 @@
                 if(move_uploaded_file($_FILES['fichier']['tmp_name'],$dossier.$fichiercptl))
                 {
                     //insertion dans la bdd
-                    require "../connexion.php";
                     $insert = $bdd->prepare("INSERT INTO products(nom,categorie,fichier,description,date,prix) VALUES(:nom,:categorie,:fichier,:description,:date,:prix)");
                     $insert->execute([
                         ":nom" => $nom,

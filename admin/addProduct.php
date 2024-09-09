@@ -54,9 +54,15 @@
             <div class="form-group my-2">
                 <label for="categorie">Catégorie: </label>
                 <select name="categorie" id="categorie" class="form-control">
-                    <option value="Cat1">Catégorie 1</option>
-                    <option value="Cat2">Catégorie 2</option>
-                    <option value="Cat3">Catégorie 3</option>
+                    <?php
+                        require "../connexion.php";
+                        $categories = $bdd->query("SELECT * FROM categories");
+                        while($donC = $categories->fetch())
+                        {
+                            echo "<option value='".$donC['id']."'>".$donC['title']."</option>";
+                        }
+                        $categories->closeCursor();
+                    ?>
                 </select>
             </div>
             <div class="form-group my-2">
