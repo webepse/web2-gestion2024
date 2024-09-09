@@ -23,6 +23,19 @@
         unlink("../images/".$donV['fichier']);
         unlink("../images/mini_".$donV['fichier']);
 
+        $images = $bdd->prepare("SELECT * FROM images WHERE id_produit=?");
+        $images->execute([$id]);
+        while($donI = $images->fetch())
+        {
+            unlink("../images/".$donI['fichier']);
+            unlink("../images/mini_".$donI['fichier']);
+        }
+        $images->closeCursor();
+
+        $deleteImg = $bdd->prepare("DELETE FROM images WHERE id_produit=?");
+        $deleteImg->execute([$id]);
+        $deleteImg->closeCursor();
+
         $delete = $bdd->prepare("DELETE FROM products WHERE id=?");
         $delete->execute([$id]);
         $delete->closeCursor();
