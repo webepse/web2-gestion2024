@@ -9,37 +9,38 @@
 
     if(isset($_GET['delete']))
     {
-        // $id = htmlspecialchars($_GET['delete']);
-        // $verif = $bdd->prepare("SELECT * FROM products WHERE id=?");
-        // $verif->execute([$id]);
-        // if(!$donV = $verif->fetch())
-        // {
-        //     $verif->closeCursor();
-        //     header("LOCATION:index.php");
-        // }
-        // $verif->closeCursor();
+        $id = htmlspecialchars($_GET['delete']);
+        $verif = $bdd->prepare("SELECT * FROM products WHERE categorie=?");
+        $verif->execute([$id]);
+        while($donV = $verif->fetch())
+        {
+            unlink("../images/".$donV['fichier']);
+            unlink("../images/mini_".$donV['fichier']);
+            $myId = $donV['id'];
+            $images = $bdd->prepare("SELECT * FROM images WHERE id_produit=?");
+            $images->execute([$myId]);
+            while($donI = $images->fetch())
+            {
+                unlink("../images/".$donI['fichier']);
+                unlink("../images/mini_".$donI['fichier']);
+            }
+            $images->closeCursor();
 
-        // // je peux supprimer
-        // unlink("../images/".$donV['fichier']);
-        // unlink("../images/mini_".$donV['fichier']);
+            $deleteImg = $bdd->prepare("DELETE FROM images WHERE id_produit=?");
+            $deleteImg->execute([$myId]);
+            $deleteImg->closeCursor();
 
-        // $images = $bdd->prepare("SELECT * FROM images WHERE id_produit=?");
-        // $images->execute([$id]);
-        // while($donI = $images->fetch())
-        // {
-        //     unlink("../images/".$donI['fichier']);
-        //     unlink("../images/mini_".$donI['fichier']);
-        // }
-        // $images->closeCursor();
+            $delete = $bdd->prepare("DELETE FROM products WHERE id=?");
+            $delete->execute([$myId]);
+            $delete->closeCursor();
+        }
+        $verif->closeCursor();
 
-        // $deleteImg = $bdd->prepare("DELETE FROM images WHERE id_produit=?");
-        // $deleteImg->execute([$id]);
-        // $deleteImg->closeCursor();
-
-        // $delete = $bdd->prepare("DELETE FROM products WHERE id=?");
-        // $delete->execute([$id]);
-        // $delete->closeCursor();
-        // header("LOCATION:products.php?deletesuccess=".$id);
+        $deleteC = $bdd->prepare("DELETE FROM categories WHERE id=?");
+        $deleteC->execute([$id]);
+        $deleteC->closeCursor();
+        header("LOCATION:categories.php?deletesuccess=".$id);
+        
     }
 
 ?>
