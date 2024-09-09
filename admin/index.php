@@ -18,13 +18,14 @@
             // traitement des valeurs
             $login = htmlspecialchars($_POST['login']);
             require "../connexion.php";
-            $req = $bdd->prepare("SELECT login,password FROM admin WHERE login=?");
+            $req = $bdd->prepare("SELECT id,login,password FROM admin WHERE login=?");
             $req->execute([$login]);
             if($don = $req->fetch())
             {
                 if(password_verify($_POST['password'],$don['password']))
                 {
                     $_SESSION['login'] = $don['login'];
+                    $_SESSION['id'] = $don['id'];
                     header("LOCATION:dashboard.php");
                 }else{
                     $erreur = "Votre mot de passe ne correspond pas";

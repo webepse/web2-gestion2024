@@ -9,7 +9,16 @@
 
     if(isset($_GET['delete']))
     {
-       
+       $id = htmlspecialchars($_GET['delete']);
+       if($_SESSION['id']==$id || $id==1)
+       {
+        $error = "suppression impossible";
+       }else{
+           $delete = $bdd->prepare("DELETE FROM admin WHERE id=?");
+           $delete->execute([$id]);
+           $delete->closeCursor();
+           header("LOCATION:members.php?deletesuccess=".$id);
+       }
     }
 
 ?>
@@ -40,6 +49,10 @@
             if(isset($_GET['deletesuccess']))
             {
                 echo "<div class='alert alert-danger'>Vous avez bien supprimé le membre id ".$_GET['deletesuccess']."</div>"; 
+            }
+            if(isset($error))
+            {
+                echo "<div class='alert alert-danger'>".$error."</div>"; 
             }
         ?>
         <a href="addMember.php" class="btn btn-success my-3">Ajouter un membre</a>

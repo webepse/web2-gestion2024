@@ -5,6 +5,12 @@
         header("LOCATION:index.php");
     }
 
+    if(isset($_GET['deco']))
+    {
+        session_destroy();
+        header("LOCATION:index.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
