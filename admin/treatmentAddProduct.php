@@ -74,7 +74,7 @@
                 $fichier = strtr($fichier, 
                 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
                 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-                $fichier = preg_replace('/([^.a-z0-9]+)/i','-',$fichier); 
+                $fichier = preg_replace('#([^.a-z0-9]+)#i','-',$fichier); 
                 $fichiercptl = rand().$fichier; 
 
 

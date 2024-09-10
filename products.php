@@ -60,7 +60,7 @@
                     echo "<div class='card col-3 m-3'>";
                         echo "<img src='images/mini_".$donProd['fichier']."' alt='image de ".$donProd['nom']."' class='img-fluid'>";
                         echo "<div class='card-body'>";
-                            echo "<h5><a href='#'>".$donProd['nom']."</a></h5>";
+                            echo "<h5><a href='product.php?id=".$donProd['id']."'>".$donProd['nom']."</a></h5>";
                             echo "<p class='card-text'>".$donProd['description']."</p>";
                         echo "</div>";
                     echo "</div>";
