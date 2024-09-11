@@ -33,7 +33,10 @@
 <body>
     <div class="container">
         <div class="row">
-            <h1><?= $don['pnom'] ?></h1>
+            <div class="col-12">
+                <h1><?= $don['pnom'] ?></h1>
+                <a href="products.php" class="btn btn-secondary my-3">Retour</a>
+            </div>
             <div class="col-md-6">
                 <img src="images/mini_<?= $don['pfichier'] ?>" alt="image de <?= $don['pnom'] ?>">
                 
@@ -58,20 +61,27 @@
                             $images = $bdd->prepare("SELECT * FROM images WHERE id_produit=?");
                             $images->execute([$id]);
                             $active = True;
-                            while($donI = $images->fetch())
+                            $count = $images->rowCount();
+                            if($count>0)
                             {
-                                if($active == True)
+                                while($donI = $images->fetch())
                                 {
-                                    echo '<div class="carousel-item active">';
+                                    if($active == True)
+                                    {
+                                        echo '<div class="carousel-item active">';
+                                            echo "<img src='images/mini_".$donI['fichier']."' alt='image galerie de ".$don['pnom']."' class='d-block w-100'>";
+                                        echo "</div>";
+                                        $active=False;
+                                    }else{
+                                        echo '<div class="carousel-item">';
                                         echo "<img src='images/mini_".$donI['fichier']."' alt='image galerie de ".$don['pnom']."' class='d-block w-100'>";
                                     echo "</div>";
-                                    $active=False;
-                                }else{
-                                    echo '<div class="carousel-item">';
-                                    echo "<img src='images/mini_".$donI['fichier']."' alt='image galerie de ".$don['pnom']."' class='d-block w-100'>";
-                                echo "</div>";
+                                    }
                                 }
+                            }else{
+                                echo "<div>Ce produit n'a pas encore d'images associées</div>";
                             }
+
                             $images->closeCursor();
                         ?>
                     </div>
@@ -87,7 +97,7 @@
             </div>
          </div>
 
-            <
+            
   
     </div>
 

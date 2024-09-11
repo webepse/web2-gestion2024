@@ -21,10 +21,27 @@
         <h2>Page des produits</h2>
         <ul class="pagination">
             <?php
+                //vérifier si le get page existe
                 if(isset($_GET['page']))
                 {
-                    $pg = htmlspecialchars($_GET['page']);
+                    // vérifier si la valeur de get page est numérique?
+                    if(is_numeric($_GET['page']))
+                    {
+                        $pg = htmlspecialchars($_GET['page']);
+                        // vérifier la valeur de pg si elle est supérieur à nombre de page max
+                        if($pg > $nbPage)
+                        {
+                            $pg = $nbPage;
+                        }elseif($pg <= 0){
+                            // vérifier si get page est égal à 0 ou inférieur
+                            $pg = 1;
+                        }
+                    }else{
+                        // redirection si pas numérique
+                        header("LOCATION:404.php");
+                    }
                 }else{
+                    // si get page n'existe pas, le pg est automatiquement à 1
                     $pg= 1;
                 }
                 // (1-1)*3=0
@@ -51,6 +68,9 @@
         </ul>
         <div class="row d-flex justify-content-center">
             <?php
+                    // SELECT * FROM products ORDER BY id DESC LIMIT 0,3 => page 1
+                    // SELECT * FROM products ORDER BY id DESC LIMIT 3,3 => page 2
+                    // SELECT * FROM products ORDER BY id DESC LIMIT 6,3 => page 3
                   $products = $bdd->prepare("SELECT * FROM products ORDER BY id DESC LIMIT :offset , :mylimit");
                   $products->bindParam(':offset', $offset, PDO::PARAM_INT);
                   $products->bindParam(':mylimit', $limit, PDO::PARAM_INT);
