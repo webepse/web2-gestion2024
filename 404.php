@@ -4,13 +4,19 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<?php
+    include("partials/header.php");
+?>
 <body>
-    <h1>Page introuvable</h1>
-    <a href="index.php">Revenir au site</a>
+    <?php
+        include("partials/nav.php");
+    ?>
+    <div class="container">
+        <h1>Page introuvable</h1>
+        <a href="index.php" class="btn btn-success">Revenir au site</a>
+    </div>
+    <?php
+        include("partials/footer.php");
+    ?>
 </body>
 </html>
