@@ -19,7 +19,7 @@
           <a class="nav-link" href="members.php">Membres</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="contact.php">Contact</a>
+          <a class="nav-link" href="contacts.php">Contact</a>
         </li>
     </ul>
     <ul class='ms-auto nav'>

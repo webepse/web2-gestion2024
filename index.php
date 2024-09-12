@@ -64,10 +64,10 @@
                             // vérifier si get page est égal à 0 ou inférieur
                             $pg = 1;
                         }
-                        }else{
-                            // redirection si pas numérique
-                            header("LOCATION:404.php");
-                        }
+                    }else{
+                        // redirection si pas numérique
+                        header("LOCATION:404.php");
+                    }
                 }else{
                     // si get page n'existe pas, le pg est automatiquement à 1
                     $pg= 1;
