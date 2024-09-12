@@ -42,15 +42,17 @@
            
         ?>
         <table class="table table-striped">
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>E-mail</th>
-                <th>Sujet</th>
-                <th>date</th>
-                <th class="text-center">Action</th>
-            </tr>
-            <tr>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>E-mail</th>
+                    <th>Sujet</th>
+                    <th>date</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php
                   
                     $req = $bdd->query("SELECT id, nom, email, sujet, DATE_FORMAT(date, '%d/%m/%Y %Hh%i') AS mydate FROM contact ORDER BY date DESC");
@@ -70,7 +72,7 @@
                     }
                     $req->closeCursor();
                 ?>
-            </tr>
+            </tbody>
         </table>
     </div>
 </body>

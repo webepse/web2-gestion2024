@@ -74,14 +74,16 @@
         ?>
         <a href="addProduct.php" class="btn btn-success my-3">Ajouter un produit</a>
         <table class="table table-striped">
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Catégorie</th>
-                <th>Prix</th>
-                <th class="text-center">Action</th>
-            </tr>
-            <tr>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Prix</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php
                   
                     $req = $bdd->query("SELECT products.id AS pid, products.nom AS pnom, products.prix AS pprix, categories.title as ctitle FROM products INNER JOIN categories ON categories.id = products.categorie");
@@ -100,7 +102,7 @@
                     }
                     $req->closeCursor();
                 ?>
-            </tr>
+            </tbody>
         </table>
     </div>
 </body>

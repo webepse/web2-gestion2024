@@ -11,6 +11,7 @@
         header("LOCATION:index.php");
     }
 
+    require "../connexion.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +28,35 @@
             include("partials/header.php");
         ?>
         <h1>Tableau de bord</h1>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6 bg-primary text-white text-center">
+                <h2>Categories</h2>
+                <?php
+                    $categories = $bdd->query("SELECT * FROM categories");
+                    $nbCat = $categories->rowCount();
+                    echo "<h3>".$nbCat."</h3>";
+                    $categories->closeCursor();
+                ?>  
+            </div>
+            <div class="col-6 bg-warning text-white text-center">
+                <h2>Produits</h2>
+                <?php
+                    $products = $bdd->query("SELECT * FROM products");
+                    $nbProd = $products->rowCount();
+                    echo "<h3>".$nbProd."</h3>";
+                    $products->closeCursor();
+                ?>  
+            </div>
+            <div class="col-6 bg-secondary text-white text-center">
+                <h2>Messages</h2>
+                <?php
+                    $messages = $bdd->query("SELECT * FROM contact");
+                    $nbMess = $messages->rowCount();
+                    echo "<h3>".$nbMess."</h3>";
+                    $messages->closeCursor();
+                ?>  
+            </div>
+        </div>
     </div>
 </body>
 </html>

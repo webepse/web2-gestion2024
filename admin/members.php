@@ -57,12 +57,14 @@
         ?>
         <a href="addMember.php" class="btn btn-success my-3">Ajouter un membre</a>
         <table class="table table-striped">
-            <tr>
-                <th>Id</th>
-                <th>Login</th>
-                <th class="text-center">Action</th>
-            </tr>
-            <tr>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Login</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php
                   
                     $req = $bdd->query("SELECT * FROM admin");
@@ -79,7 +81,7 @@
                     }
                     $req->closeCursor();
                 ?>
-            </tr>
+            </tbody>
         </table>
     </div>
 </body>

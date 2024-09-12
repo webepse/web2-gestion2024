@@ -148,11 +148,14 @@
             ?>
             <a href="addImg.php?id=<?= $id ?>" class='btn btn-success'>Ajouter une image</a>
             <table class="table table-striped">
-                <tr>
-                    <th>id</th>
-                    <th>image</th>
-                    <th>action</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>image</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <?php
                     $images = $bdd->prepare("SELECT * FROM images WHERE id_produit=?");
                     $images->execute([$id]);
@@ -166,6 +169,7 @@
                     }
                     $images->closeCursor();
                 ?>
+                </tbody>
             </table>
 
 

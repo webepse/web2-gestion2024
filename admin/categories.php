@@ -75,12 +75,14 @@
         ?>
         <a href="addCategory.php" class="btn btn-success my-3">Ajouter une catégorie</a>
         <table class="table table-striped">
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th class="text-center">Action</th>
-            </tr>
-            <tr>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php
                   
                     $req = $bdd->query("SELECT * FROM categories");
@@ -97,7 +99,7 @@
                     }
                     $req->closeCursor();
                 ?>
-            </tr>
+            </tbody>
         </table>
     </div>
 </body>
