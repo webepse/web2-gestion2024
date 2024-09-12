@@ -21,9 +21,31 @@
         }
     }
 
+    if(empty($_POST['sujet']))
+    {
+        $err = 4;
+    }else{
+        $sujet = htmlspecialchars($_POST['sujet']);
+    }
+
+    if(empty($_POST['message']))
+    {
+        $err = 5;
+    }else{
+        $message = htmlspecialchars($_POST['message']);
+    }
+
     if($err == 0)
     {
-
+        require "connexion.php";
+        $insert = $bdd->prepare("INSERT INTO contact(nom,email,sujet,message,date) VALUES(:nom,:email,:sujet,:message,NOW())");
+        $insert->execute([
+            ':nom' => $nom,
+            ":email"=>$email,
+            ":sujet"=>$sujet,
+            ":message"=>$message
+        ]);
+        header("LOCATION:index.php?action=contact&send=success");
     }else{
         header("LOCATION:index.php?action=contact&err=".$err);
     }

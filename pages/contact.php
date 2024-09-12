@@ -1,4 +1,11 @@
 <h1>Contact</h1>
+<?php
+    if(isset($_GET['send']))
+    {
+        echo "<div class='alert alert-success'>Votre message à bien été envoyé</div>";
+    }
+
+?>
 <form action="traitement.php" method="POST">
     <div class="form-group my-3">
         <label for="nom">Nom: </label>

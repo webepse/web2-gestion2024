@@ -1,0 +1,7 @@
+Options +FollowSymlinks
+RewriteEngine On
+# attention de mettre à jour votre RewriteBase suivant votre installation
+RewriteBase /PHPJordan/gestion/
+RewriteRule ^produit-([0-9]+)$ index.php?action=product&id=$1 [L]
+RewriteRule ^produits$ index.php?action=products [L]
+RewriteRule ^produits-([0-9]+)$ index.php?action=products&page=$1 [L]
