@@ -20,11 +20,8 @@
 </ul>
 <div class="row d-flex justify-content-center">
     <?php
-            $products = $bdd->prepare("SELECT * FROM products ORDER BY id DESC LIMIT :offset , :mylimit");
-            $products->bindParam(':offset', $offset, PDO::PARAM_INT);
-            $products->bindParam(':mylimit', $limit, PDO::PARAM_INT);
-        $products->execute();
-        while($donProd = $products->fetch())
+          
+        foreach($datas as $donProd)
         {
             echo "<div class='card col-3 m-3'>";
                 echo "<img src='images/mini_".$donProd['fichier']."' alt='image de ".$donProd['nom']."' class='img-fluid'>";
@@ -34,6 +31,6 @@
                 echo "</div>";
             echo "</div>";
         }
-        $products->closeCursor();
+        
     ?>
 </div>

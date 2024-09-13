@@ -19,27 +19,7 @@
         {
             if($action == "product")
             {
-                if(isset($_GET['id']))
-                {
-                    $id = htmlspecialchars($_GET['id']);
-                    if(!is_numeric($id))
-                    {
-                        header("LOCATION:404.php");
-                    }
-                }else{
-                    header("LOCATION:404.php");
-                }
-            
-                $req = $bdd->prepare("SELECT products.nom as pnom, categories.title as cnom, products.description AS pdescription, products.fichier AS pfichier, DATE_FORMAT(products.date,'%d/%m/%Y') as pdate FROM products INNER JOIN categories ON products.categorie = categories.id WHERE products.id=?");
-                $req->execute([$id]);
-                if(!$don = $req->fetch())
-                {
-                    $req->closeCursor();
-                    header("LOCATION:404.php");
-                }
-                $req->closeCursor();
-                // View 
-                $menu = $tabMenu['product'];
+               //Q7
             }elseif($action == "products")
             {
                 // controller
@@ -73,8 +53,13 @@
                     $pg= 1;
                 }
                 $offset = ($pg-1)*$limit;
-                // plus tard la req (fetchAll)
-                // $data
+                $products = $bdd->prepare("SELECT * FROM products ORDER BY id DESC LIMIT :offset , :mylimit");
+                $products->bindParam(':offset', $offset, PDO::PARAM_INT);
+                $products->bindParam(':mylimit', $limit, PDO::PARAM_INT);
+                $products->execute();
+                $datas = $products->fetchAll();
+                $products->closeCursor();
+
                 // View
                 $menu = $tabMenu['products'];
             }else{
