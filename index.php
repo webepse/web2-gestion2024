@@ -59,7 +59,6 @@
                 $products->execute();
                 $datas = $products->fetchAll();
                 $products->closeCursor();
-
                 // View
                 $menu = $tabMenu['products'];
             }else{
